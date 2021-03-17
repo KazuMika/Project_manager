@@ -1,0 +1,47 @@
+
+	<ui:composition template="/templates/template.xhtml"
+xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+		<ui:define name="title">所属登録確認</ui:define>
+		<ui:define name="content">
+			<!--ここに内容いれる-->
+
+			<h:dataTable value="#{belongBean.fileFolder.divisionList}" var="f"
+				styleClass="table table-striped table table-hover table-borderless">
+				<h:column>
+					<f:facet name="header">部コード</f:facet>
+					<h:outputText value="#{f.divisionCode}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">グループコード</f:facet>
+					<h:outputText value="#{f.groupCode}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">部署名</f:facet>
+					<h:outputText value="#{f.divisionName}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">グループ名</f:facet>
+					<h:outputText value="#{f.groupName}" />
+				</h:column>
+
+				<h:column>
+					<f:facet name="header">表示順</f:facet>
+					<h:outputText value="#{f.displayOrder}" />
+				</h:column>
+			</h:dataTable>
+
+			<h:form>
+				<h:commandButton action="#{belongBean.replace()}" value="実行"
+					styleClass="float-right btn btn-primary btn-lg text-center" />
+			</h:form>
+
+		</ui:define>
+	</ui:composition>

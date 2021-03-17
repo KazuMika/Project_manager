@@ -1,0 +1,25 @@
+<ui:composition template="/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:define name="title">所属登録完了</ui:define>
+
+	<ui:define name="content">
+		<h3>更新情報</h3>
+		<h:panelGrid columns="2"
+			styleClass="table table-striped  table-borderless">
+			<h:outputText value="削除件数" />
+			<h:outputText value="#{belongBean.fileFolder.deleteStaffCount}" />
+			<h:outputText value="更新件数" />
+			<h:outputText value="#{belongBean.fileFolder.insertStaffCount}" />
+		</h:panelGrid>
+
+		<h:button styleClass="btn btn-primary btn-lg  text-center"
+			value="メニューへ" outcome="/common/menu.xhtml" style="width:300px" />
+
+
+	</ui:define>
+</ui:composition>

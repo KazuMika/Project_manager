@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.ReportMapper">
+
+	<select id="findByConditionLimit" resultType="entity.Project"
+		parameterType="cdi.SearchCondition">
+		select * from t_project
+		<where>
+			<if test="projectCode != null">
+				<bind name="projectCode"
+					value="'%' + _parameter.getProjectCode() + '%'" />
+				projectCode like #{projectCode}
+			</if>
+			<if test="projectName != null">
+				<bind name="projectName"
+					value="'%' + _parameter.getProjectName() + '%'" />
+				AND projectName like #{projectName}
+			</if>
+			<if test="accuracy != 0">
+				AND accuracy = #{accuracy}
+			</if>
+			<if test="projectStatus !=0">
+				AND projectStatus = #{projectStatus}
+			</if>
+			<if test="customerCode != null">
+				<bind name="customerCode"
+					value="'%' + _parameter.getCustomerCode() + '%'" />
+				AND customerCode like #{customerCode}
+			</if>
+			<if test="receivedDateStart!=null">
+				AND receivedDate &gt;= #{receivedDateStart}
+			</if>
+			<if test="receivedDateEnd!=null">
+				AND receivedDate &lt;= #{receivedDateEnd}
+			</if>
+		</where>
+		order by receivedDate Asc, accuracy asc limit
+		#{firstRecordIndex},#{maxDisp}
+	</select>
+
+	<!-- 検索条件にあうユーザーの人数を数える動的SQL -->
+	<select id="getUserCountByCondition" resultType="long"
+		parameterType="cdi.SearchCondition">
+		select count(*) from t_project
+		<where>
+			<if test="projectCode != null">
+				<bind name="projectCode"
+					value="'%' + _parameter.getProjectCode() + '%'" />
+				projectCode like #{projectCode}
+			</if>
+			<if test="projectName != null">
+				<bind name="projectName"
+					value="'%' + _parameter.getProjectName() + '%'" />
+				AND projectName like #{projectName}
+			</if>
+			<if test="accuracy != 0">
+				AND accuracy = #{accuracy}
+			</if>
+			<if test="projectStatus != 0">
+				AND projectStatus = #{projectStatus}
+			</if>
+			<if test="customerCode != null">
+				<bind name="customerCode"
+					value="'%' + _parameter.getCustomerCode() + '%'" />
+				AND customerCode like #{customerCode}
+			</if>
+			<if test="receivedDateStart!=null">
+				AND receivedDate &gt;= #{receivedDateStart}
+			</if>
+			<if test="receivedDateEnd!=null">
+				AND receivedDate &lt;= #{receivedDateEnd}
+			</if>
+		</where>
+	</select>
+
+	<!-- <select id="getCustomerCode" resultType="hashmap"> select customerCode,customerName
+		from m_customer </select> <select id="getSection" resultType="hashmap"> select
+		CONCAT(divisionCode,groupCode),divisionName from m_division </select> -->
+
+</mapper>

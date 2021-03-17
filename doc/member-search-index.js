@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"mapper","c":"BelongMapper","l":"countStaff()"},{"p":"mapper","c":"BelongMapper","l":"create(Division)","url":"create(entity.Division)"},{"p":"mapper","c":"BelongMapper","l":"deleteAllStaff()"}]

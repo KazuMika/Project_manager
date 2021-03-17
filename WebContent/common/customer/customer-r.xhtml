@@ -1,0 +1,101 @@
+<ui:composition template="/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:define name="title">案件情報作成</ui:define>
+	<ui:define name="content">
+		<div style="margin: 0 auto; width: 70%">
+			<h:outputText rendered="#{customerBean.form.registerFlag}"
+				styleClass="messageh3" value="新規取引先登録" />
+			<h:outputText rendered="#{customerBean.form.editFlag}"
+				styleClass="messageh3" value="取引先情報編集" />
+			<h:outputText rendered="#{customerBean.form.deleteFlagForForm}"
+				styleClass="messageh3" value="取引先情報削除" />
+			<br />
+			<h:outputText styleClass="message"
+				rendered="#{customerBean.form.deleteFlagForForm}"
+				value="#{customerBean.deleteMessage}" />
+			<br />
+
+			<h:outputText styleClass="message"
+				value="#{customerBean.logic.message}" />
+
+
+
+			<h:form>
+				<h:panelGrid columns="3"
+					styleClass="table table-striped table table-hover table-borderless">
+			取引先コード(3桁英数)<h:inputText value="#{customerBean.form.customerCode}"
+						id="customerCode" rendered="#{customerBean.form.registerFlag}">
+						<f:ajax event="blur" execute="@this" render="errCode" />
+					</h:inputText>
+					<h:messages id="errCode" class="message" for="customerCode"
+						rendered="#{customerBean.form.registerFlag}" />
+					<h:outputText value="#{customerBean.form.customerCode}"
+						id="customerCode2" rendered="#{customerBean.form.editFlag}">
+					</h:outputText>
+					<h:messages  class="message" for="customerCode2"
+						rendered="#{customerBean.form.editFlag}" />
+
+					<h:outputText value="#{customerBean.form.customerCode}"
+						id="customerCode3"
+						rendered="#{customerBean.form.deleteFlagForForm}">
+					</h:outputText>
+					<h:messages class="message" for="customerCode3"
+						rendered="#{customerBean.form.deleteFlagForForm}" />
+
+			取引先名<h:inputText value="#{customerBean.form.customerName}"
+						rendered="#{!customerBean.form.deleteFlagForForm}"
+						id="customerName">
+						<f:ajax event="blur" execute="@this" render="errName" />
+					</h:inputText>
+
+					<h:outputText value="#{customerBean.form.customerName}"
+						id="customerName2"
+						rendered="#{customerBean.form.deleteFlagForForm}">
+					</h:outputText>
+
+					<h:messages id="errName" class="message" for="customerName" />
+			住所<h:inputText value="#{customerBean.form.address}"
+						rendered="#{!customerBean.form.deleteFlagForForm}" id="address">
+						<f:ajax event="blur" execute="@this" render="errAddress" />
+					</h:inputText>
+					<h:outputText value="#{customerBean.form.customerName}"
+						id="address2" rendered="#{customerBean.form.deleteFlagForForm}">
+					</h:outputText>
+					<h:messages id="errAddress" class="message" for="address" />
+
+			電話番号<h:inputText value="#{customerBean.form.phoneNumber}"
+						rendered="#{!customerBean.form.deleteFlagForForm}" id="phone">
+						<f:ajax event="blur" execute="@this" render="errPhone" />
+					</h:inputText>
+					<h:outputText value="#{customerBean.form.phoneNumber}" id="phone2"
+						rendered="#{customerBean.form.deleteFlagForForm}">
+					</h:outputText>
+					<h:messages id="errPhone" class="message" for="phone" />
+
+			URL<h:inputText value="#{customerBean.form.url}" id="url"
+						rendered="#{!customerBean.form.deleteFlagForForm}">
+						<f:ajax event="blur" execute="@this" render="errURL" />
+					</h:inputText>
+					<h:outputText value="#{customerBean.form.url}" id="url2"
+						rendered="#{customerBean.form.deleteFlagForForm}">
+					</h:outputText>
+					<h:messages id="errURL" class="message" for="url" />
+
+				</h:panelGrid>
+
+				<h:button value="戻る[検索へ]"
+					outcome="/common/customer/customer-s.xhtml"
+					styleClass="float-left btn btn-primary btn-lg  text-center" />
+				<h:commandButton value="確認" action="#{customerBean.registerC()}"
+					styleClass="float-right btn btn-primary btn-lg  text-center"
+					style="width:200px" />
+			</h:form>
+		</div>
+	</ui:define>
+
+</ui:composition>

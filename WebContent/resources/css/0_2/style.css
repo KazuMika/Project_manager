@@ -1,0 +1,212 @@
+/* body{
+	background:#e0f8ff;
+}
+
+table{
+  border-collapse: separate;
+  border-spacing: 0px 5px;
+}
+td,th{
+  padding: 10px;
+}
+th{
+  background: #10a0e0;
+  color: #fff;
+}
+td{
+  background: #f1fafe;
+}
+ */
+
+.ui-datatable tbody {
+	border: hidden;
+	background-color: transparent;
+	width: auto;
+}
+
+.ui-datatable table {
+	border: hidden;
+	background-color: transparent;
+	width: 1000px;
+}
+
+.ui-datatable thead {
+	border: hidden;
+	background-color: transparent;
+	width: auto;
+}
+.ui-datatable table {
+	border: hidden;
+	background-color: transparent;
+	width: auto;
+}
+.ui-datatable th ,.ui-datatable tr,.ui-datatable td{
+	border: hidden;
+	background-color: transparent;
+	width: auto;
+}
+
+.ui-datatable-tablewrapper tbody {
+	border: hidden;
+	background-color: transparent;
+	width: auto;
+}
+
+.box17 {
+	margin: 2em 0;
+	position: relative;
+	padding: 0.5em 1.5em;
+	border-top: solid 2px black;
+	border-bottom: solid 2px black;
+}
+
+.box17:before, .box17:after {
+	content: '';
+	position: absolute;
+	top: -10px;
+	width: 2px;
+	height: -webkit-calc(100% + 20px);
+	height: calc(100% + 20px);
+	background-color: black;
+}
+
+.box17:before {
+	left: 10px;
+}
+
+.box17:after {
+	right: 10px;
+}
+
+.box17 p {
+	margin: 0;
+	padding: 0;
+}
+
+.message {
+	color: #ea3559;
+	font-weight: 600;
+	font-size: 20px;
+}
+
+.message2 {
+	font-weight: 600;
+	font-size: 20px;
+}
+
+table {
+	text-align: center;
+}
+
+.container {
+	width: 90%;
+	margin: 0px auto;
+	padding: 100px 0px 50px 0px;
+}
+
+.container2 {
+	width: 75%;
+	margin: 0px auto;
+	padding: 100px 0px 50px 0px;
+}
+
+.container3 {
+	width: 90%;
+	margin: 0px auto;
+	padding: 100px 0px 50px 0px;
+}
+
+.wrapper {
+	min-height: 100vh;
+	position: relative; /*←相対位置*/
+	padding-bottom: 150px; /*←footerの高さ*/
+	box-sizing: border-box; /*←全て含めてmin-height:100vhに*/
+}
+
+.size {
+	padding: 30px;
+}
+
+.footer {
+	width: 100%;
+	color: #fff;
+	text-align: center;
+	padding: 20px 0;
+	position: absolute; /*←絶対位置*/
+	bottom: 0; /*下に固定*/
+}
+
+/* h3 {
+	border-bottom: solid 3px skyblue;
+	position: relative;
+	text-align:center;
+}
+
+h3:after {
+	position: absolute;
+	content: " ";
+	display: block;
+	border-bottom: solid 3px #ffc778;
+	bottom: -3px;
+	width: 30%;
+}
+ */
+h3 {
+	position: relative;
+	padding: 0.25em 0;
+	text-align: center;
+}
+
+h3:after {
+	content: "";
+	display: block;
+	height: 4px;
+	background: -webkit-linear-gradient(to right, rgb(255, 186, 115),
+		#ffb2b2);
+	background: linear-gradient(to right, rgb(255, 186, 115), #ffb2b2);
+}
+
+.messageh3 {
+	border-bottom: solid 3px skyblue;
+	position: relative;
+	text-align: center;
+	font-size: 30px;
+	font-weight: 300;
+}
+
+.messageh3:after {
+	position: absolute;
+	content: " ";
+	display: block;
+	border-bottom: solid 3px #ffc778;
+	bottom: -3px;
+	width: 30%;
+}
+
+.memobox {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	background-color: #fff9c4;
+	padding: 10px;
+	border-radius: 15px;
+}
+
+.memobox-title {
+	font-size: 18px;
+	font-weight: bold;
+	padding-left: 10px;
+	color: #ffc107;
+}
+
+.memobox li {
+	font-size: 16px;
+	margin: 0;
+	padding: 0;
+}
+
+.boldText {
+	font-size: 16px;
+	font-family: -apple-system, BlinkMacSystemFont, Roboto,
+		"Segoe UI semibold", "Helvetica Neue", HelveticaNeue, YuGothic,
+		"Yu Gothic", "Segoe UI", Verdana, Meiryo, sans-serif;
+}

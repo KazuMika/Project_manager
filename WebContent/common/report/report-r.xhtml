@@ -1,0 +1,148 @@
+<ui:composition template="/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:define name="title">案件報告作成・編集</ui:define>
+	<ui:define name="content">
+		<div style="margin: 0 auto; width: 70%">
+			<h:outputText rendered="#{!reportBean.reportForm.editFlag}"
+				styleClass="messageh3" value="新規案件報告登録" />
+			<h:outputText rendered="#{reportBean.reportForm.editFlag}"
+				styleClass="messageh3" value="案件報告編集" />
+			<br />
+			<h:outputText styleClass="message"
+				value="#{reportBean.reportLogic.message}" />
+			<br />
+			<h:outputText styleClass="message" value="#{reportBean.editMessage1}" />
+			<br />
+			<h:outputText styleClass="message" value="#{reportBean.editMessage2}" />
+			<br />
+
+			<h:form>
+				<h:panelGrid columns="3"
+					styleClass="table table-striped table table-hover table-borderless">
+				案件コード<h:outputText value="#{reportBean.reportForm.projectCode}"
+						id="projectCode">
+					</h:outputText>
+					<h:messages class="message" for="projectCode" />
+
+			案件名<h:outputText value="#{reportBean.reportForm.projectName}"
+						id="projectName">
+					</h:outputText>
+					<h:messages class="message" for="projectName" />
+
+			受注予定年月日:<h:inputText id="receivedDate"
+						value="#{reportBean.reportForm.receivedDate}" p:type="date"
+						label="予定年月日">
+						<f:ajax event="blur" execute="@this" render="errRecivedDate" />
+						<f:convertDateTime pattern="yyyy-MM-dd" timeZone="Asia/Tokyo" />
+					</h:inputText>
+					<h:messages class="message" for="receivedDate" id="errRecivedDate" />
+
+				受注確度<h:selectOneMenu id="acc"
+						value="#{reportBean.reportForm.accuracy}">
+						<f:selectItems value="#{reportBean.map.acc}" />
+						<f:ajax event="blur" execute="@this" render="errAcc" />
+					</h:selectOneMenu>
+					<h:messages class="message" for="acc" id="errAcc" />
+
+ 				案件ステータス<h:selectOneMenu value="#{reportBean.reportForm.status}"
+						id="status" rendered="#{!reportBean.reportForm.firstReport}">
+						<f:ajax event="blur" execute="@this" render="errStatus" />
+						<f:selectItems value="#{reportBean.map.pStatus}" />
+					</h:selectOneMenu>
+					<h:outputText
+						value="#{reportBean.map.pStatusR.get(reportBean.reportForm.status)}"
+						rendered="#{reportBean.reportForm.firstReport}">
+					</h:outputText>
+
+					<h:messages class="message" for="status" id="errStatus" />
+
+			打ち合わせ年月日:<h:inputText id="meetingDate"
+						value="#{reportBean.reportForm.meetingDate}" p:type="date"
+						label="打ち合わせ年月日">
+						<f:ajax event="blur" execute="@this" render="errMeetingDate" />
+						<f:convertDateTime pattern="yyyy-MM-dd" timeZone="Asia/Tokyo" />
+					</h:inputText>
+					<h:messages class="message" for="meetingDate" id="errMeetingDate"/>
+
+ 				往来区分<h:selectOneRadio value="#{reportBean.reportForm.trafficCode}"
+						id="trafficCode" style="margin:0 auto">
+						<f:ajax event="blur" execute="@this" render="errTrafficCode" />
+						<f:selectItems value="#{reportBean.map.trafficCode}" />
+					</h:selectOneRadio>
+					<h:messages class="message" for="trafficCode" id="errTrafficCode" />
+
+			打ち合わせ参加者（取引先側1)<h:inputText
+						value="#{reportBean.reportForm.customer1}" id="customer1">
+						<f:ajax event="blur" execute="@this" render="errCustomer1" />
+					</h:inputText>
+					<h:messages class="message" for="customer1" id="errCustomer1"/>
+
+			打ち合わせ参加者（取引先側2)<h:inputText
+						value="#{reportBean.reportForm.customer2}" id="customer2">
+						<f:ajax event="blur" execute="@this" render="errCustomer2" />
+					</h:inputText>
+					<h:messages class="message" for="customer2" id="errCustomer2"/>
+
+			打ち合わせ参加者（取引先側3)<h:inputText
+						value="#{reportBean.reportForm.customer3}" id="customer3">
+						<f:ajax event="blur" execute="@this" render="errCustomer3" />
+					</h:inputText>
+					<h:messages class="message" for="customer3" id="errCustomer3" />
+
+			打ち合わせ参加者(当社側1)<h:inputText value="#{reportBean.reportForm.staff1}"
+						id="staff1">
+						<f:ajax event="blur" execute="@this" render="errStaff1" />
+					</h:inputText>
+					<h:messages class="message" for="staff1" id="errStaff1" />
+			打ち合わせ参加者(当社側2)<h:inputText value="#{reportBean.reportForm.staff2}"
+						id="staff2">
+						<f:ajax event="blur" execute="@this" render="errStaff2" />
+					</h:inputText>
+					<h:messages class="message" for="staff2" id="errStaff2"/>
+
+			打ち合わせ参加者(当社側3)<h:inputText value="#{reportBean.reportForm.staff3}"
+						id="staff3">
+						<f:ajax event="blur" execute="@this" render="errStaff3" />
+					</h:inputText>
+					<h:messages class="message" for="staff3" id="errStaff3" />
+
+					<h:outputLabel for="addCustomer" value="取引先側その他参加者あり" />
+					<h:selectBooleanCheckbox id="addCustomer"
+						value="#{reportBean.reportForm.customerAddFlg}" />
+					<h:messages class="message" for="addCustomer" id="errAddCustomer"/>
+
+					<h:outputLabel for="addStaff" value="当社側その他参加者あり" />
+					<h:selectBooleanCheckbox id="addStaff"
+						value="#{reportBean.reportForm.staffAddFlg}" />
+					<h:messages class="message" for="addStaff" id="errStaffAdd" />
+
+			メモ<h:inputTextarea rows="5" cols="30"
+						value="#{reportBean.reportForm.memo}" id="projectMemo">
+						<f:ajax event="blur" execute="@this" render="errMemo" />
+					</h:inputTextarea>
+					<h:messages class="message" for="projectMemo" id="errMemo" />
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="2"
+					styleClass="table table-striped table table-hover table-borderless">
+
+					<h:button value="戻る[報告一覧へ]" outcome="/common/report/report-i.xhtml"
+						styleClass="float-left btn btn-primary btn-lg  text-center"
+						style="width:200px" />
+					<h:commandButton value="確認" action="#{reportBean.registerC()}"
+						styleClass="float-right btn btn-primary btn-lg  text-center"
+						style="width:200px" />
+
+				</h:panelGrid>
+
+			</h:form>
+		</div>
+	</ui:define>
+
+</ui:composition>

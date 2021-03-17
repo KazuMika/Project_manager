@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.CustomerMapper">
+
+	<select id="findByConditionLimit" resultType="entity.Customer"
+		parameterType="cdi.SearchConditionForCustomer">
+		select * from m_customer
+		<where>
+			<if test="customerCode != null">
+				<bind name="customerCode"
+					value="'%' + _parameter.getCustomerCode() + '%'" />
+				customerCode like #{customerCode}
+			</if>
+			<if test="customerName != null">
+				<bind name="customerName"
+					value="'%' + _parameter.getCustomerName() + '%'" />
+				AND customerName like #{customerName}
+			</if>
+			<if test="address != null">
+				<bind name="address"
+					value="'%' + _parameter.getAddress() + '%'" />
+				AND address like #{address}
+			</if>
+			<if test="updateDateStart!=null">
+				AND updateDate &gt;= #{updateDateStart}
+			</if>
+			<if test="updateDateEnd!=null">
+				AND updateDate &lt;= #{updateDateEnd}
+			</if>
+			AND deleteFlag =0
+		</where>
+		order by updateDate desc, customerCode asc limit
+		#{firstRecordIndex},#{maxDisp}
+	</select>
+
+	<!-- 検索条件にあうユーザーの人数を数える動的SQL -->
+	<select id="getProjectCountByCondition" resultType="long"
+		parameterType="cdi.SearchConditionForCustomer">
+		select count(*) from m_customer
+		<where>
+			<if test="customerCode != null">
+				<bind name="customerCode"
+					value="'%' + _parameter.getCustomerCode() + '%'" />
+				customerCode like #{customerCode}
+			</if>
+			<if test="customerName != null">
+				<bind name="customerName"
+					value="'%' + _parameter.getCustomerName() + '%'" />
+				AND customerName like #{customerName}
+			</if>
+			<if test="address != null">
+				<bind name="address"
+					value="'%' + _parameter.getAddress() + '%'" />
+				AND address like #{address}
+			</if>
+			<if test="updateDateStart!=null">
+				AND updateDate &gt;= #{updateDateStart}
+			</if>
+			<if test="updateDateEnd!=null">
+				AND updateDate &lt;= #{updateDateEnd}
+			</if>
+			AND deleteFlag =0
+		</where>
+	</select>
+
+	<!-- <select id="getCustomerCode" resultType="hashmap"> select customerCode,customerName
+		from m_customer </select> <select id="getSection" resultType="hashmap"> select
+		CONCAT(divisionCode,groupCode),divisionName from m_division </select> -->
+
+</mapper>

@@ -1,0 +1,81 @@
+<ui:composition template="/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:define name="title">案件情報確認</ui:define>
+	<ui:define name="content">
+		<div style="margin: 0 auto; width: 70%">
+			<h:outputText rendered="#{!matterBean.matterForm.editFlag}"
+				styleClass="messageh3" value="新規案件登録" />
+			<h:outputText rendered="#{matterBean.matterForm.editFlag}"
+				styleClass="messageh3" value="案件情報編集" />
+			<h2>
+				<h:outputText value="#{matterBean.matterLogic.message}" />
+			</h2>
+
+			<h:form>
+				<h:panelGrid columns="2"
+					styleClass="table table-striped table table-hover table-borderless">
+			案件コード<h:outputText value="#{matterBean.matterForm.projectCode}"
+						id="projectCode">
+					</h:outputText>
+
+			案件名<h:outputText value="#{matterBean.matterForm.projectName}"
+						id="projectName">
+					</h:outputText>
+
+			受注予定年月日:<h:outputText id="receivedDate"
+						value="#{matterBean.matterForm.receivedDate}" p:type="date"
+						label="予定年月日">
+						<f:convertDateTime pattern="yyyy-MM-dd" timeZone="Asia/Tokyo" />
+					</h:outputText>
+
+				受注確度<h:outputText id="acc"
+						value="#{matterBean.map.accR.get(matterBean.matterForm.accuracy)}">
+					</h:outputText>
+
+ 				案件ステータス<h:outputText
+						value="#{matterBean.map.pStatusR.get(matterBean.matterForm.projectStatus)}"
+						id="status">
+					</h:outputText>
+
+			案件メモ<h:outputText value="#{matterBean.matterForm.projectMemo}"
+						id="projectMemo">
+					</h:outputText>
+
+				取引先<h:outputText
+						value="#{matterBean.map.customerCodeR.get(matterBean.matterForm.customerCode)}"
+						id="customerCode">
+					</h:outputText>
+
+			電話番号<h:outputText
+						value="#{matterBean.matterForm.customerPhoneNumber}" id="phone">
+					</h:outputText>
+
+			メールアドレス<h:outputText
+						value="#{matterBean.matterForm.customerMailAddress}" id="mail">
+					</h:outputText>
+
+				主管部署<h:outputText
+						value="#{matterBean.map.sectionR.get(matterBean.matterForm.section)}"
+						id="section">
+					</h:outputText>
+
+
+			営業社員名<h:outputText value="#{matterBean.staffName}" id="staffName">
+					</h:outputText>
+				</h:panelGrid>
+
+				<h:button value="戻る[入力へ]" outcome="/common/matter/matter-r.xhtml"
+					styleClass="float-left btn btn-primary btn-lg  text-center" />
+				<h:commandButton value="実行" action="#{matterBean.registerF()}"
+					styleClass="float-right btn btn-primary btn-lg  text-center"
+					style="width:200px" />
+			</h:form>
+		</div>
+	</ui:define>
+
+</ui:composition>

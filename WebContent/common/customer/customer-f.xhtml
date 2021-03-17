@@ -1,0 +1,38 @@
+<ui:composition template="/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:define name="title">案件作成完了</ui:define>
+
+	<ui:define name="content">
+		<h3>
+			<h:outputText value="#{customerBean.completeMessage}" />
+		</h3>
+
+		<h:form>
+			<h:panelGrid columns="2"
+				styleClass="table table-striped table table-hover table-borderless">
+			変更件数<h:outputText value="#{customerBean.resultNum}" id="resultNum">
+				</h:outputText>
+			取引先コード<h:outputText value="#{customerBean.customerCode}"
+					id="customerCode">
+				</h:outputText>
+
+			取引先名<h:outputText value="#{customerBean.customerName}"
+					id="customerName">
+				</h:outputText>
+			</h:panelGrid>
+
+			<h:button value="メニューへ" outcome="/common/menu.xhtml"
+				styleClass="float-left btn btn-primary btn-lg  text-center mr-1" />
+			<h:button value="取引先トップへ" outcome="/common/customer/customer-s.xhtml"
+				styleClass="float-left btn btn-primary btn-lg  text-center" />
+		</h:form>
+
+
+
+	</ui:define>
+</ui:composition>

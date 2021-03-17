@@ -1,0 +1,62 @@
+<ui:composition template="/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:define name="title">案件情報作成</ui:define>
+	<ui:define name="content">
+		<div style="margin: 0 auto; width: 70%">
+			<h:outputText styleClass="message"
+				value="#{staffBean.staffLogic.message}" />
+				<h3>ユーザ編集・削除</h3>
+			<h:form>
+				<h:panelGrid columns="3"
+					styleClass="table table-striped table table-hover table-borderless">
+			StaffID<h:outputText value="#{staffBean.form.staffID}" id="staffID">
+					</h:outputText>
+					<h:messages class="message" for="staffID" />
+
+			Staff名<h:inputText value="#{staffBean.form.staffName}" id="projectName">
+						<f:ajax event="blur" execute="@this" render="errName" />
+					</h:inputText>
+					<h:messages class="message" for="projectName" id="errName" />
+
+					<h:outputLabel value="古いパスワードを入力してください: " />
+					<h:inputSecret value="#{staffBean.form.oldPassword}" id="oldPass">
+						<f:ajax event="blur" execute="@this" render="errPassword" />
+					</h:inputSecret>
+					<h:messages class="message" for="oldPass" id="errPassword" />
+
+					<h:outputLabel value="新しいパスワードを入力してください: " />
+					<h:inputSecret value="#{staffBean.form.newPassword}" id="newPass">
+						<f:ajax event="blur" execute="@this" render="errPassword2" />
+					</h:inputSecret>
+					<h:messages class="message" for="newPass" id="errPassword2" />
+
+				主管部署<h:selectOneMenu value="#{staffBean.form.divisionAndGroupCode}"
+						id="section">
+						<f:selectItems value="#{staffBean.map.section}" />
+						<f:ajax event="blur" execute="@this" render="errSection" />
+					</h:selectOneMenu>
+					<h:messages class="message" for="section" id="errSection" />
+
+
+				</h:panelGrid>
+			<h:button value="戻る[メニューへ]" outcome="/common/menu.xhtml"
+				styleClass="float-left btn btn-primary btn-lg  text-center" />
+
+				<h:commandButton value="削除" action="#{staffBean.deleteC()}"
+					styleClass="float-right btn btn-primary btn-lg  text-center"
+					style="width:200px" />
+
+
+				<h:commandButton value="編集" action="#{staffBean.editC()}"
+					styleClass="float-right btn btn-primary btn-lg  text-center mr-3"
+					style="width:200px" />
+			</h:form>
+		</div>
+	</ui:define>
+
+</ui:composition>

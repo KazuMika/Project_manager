@@ -1,0 +1,35 @@
+<ui:composition template="/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:define name="title">案件作成完了</ui:define>
+
+	<ui:define name="content">
+	<h3><h:outputText value="#{staffBean.completeMessage}" /></h3>
+
+			<h:form>
+				<h:panelGrid columns="2"
+					styleClass="table table-striped table table-hover table-borderless">
+			件数<h:outputText value="#{staffBean.updateStaffNum}"
+						id="projectNum">
+					</h:outputText>
+			StaffID<h:outputText value="#{staffBean.loginInfo.loginStaff.staffID}"
+						id="projectCode">
+					</h:outputText>
+
+			Staff名<h:outputText value="#{staffBean.loginInfo.loginStaff.staffName}"
+						id="projectName">
+					</h:outputText>
+				</h:panelGrid>
+
+				<h:button value="メニューへ" outcome="/common/menu.xhtml"
+					styleClass="float-left btn btn-primary btn-lg  text-center mr-1" />
+			</h:form>
+
+
+
+	</ui:define>
+</ui:composition>

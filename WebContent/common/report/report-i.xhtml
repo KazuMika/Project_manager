@@ -1,0 +1,160 @@
+<ui:composition template="/templates/template2.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:define name="title">案件報告作成</ui:define>
+
+	<ui:define name="content">
+
+		<div class="row">
+			<div class="col-5">
+
+				<h3>案件情報</h3>
+				<h:panelGrid columns="2"
+					styleClass="table table-striped table table-hover table-borderless">
+			案件コード<h:outputText
+						value="#{reportBean.reportForm.project.projectCode}"
+						id="projectCode">
+					</h:outputText>
+
+			案件名<h:outputText value="#{reportBean.reportForm.project.projectName}"
+						id="projectName">
+					</h:outputText>
+
+			受注予定年月日:<h:outputText id="receivedDate"
+						value="#{reportBean.reportForm.project.receivedDate}"
+						p:type="date" label="予定年月日">
+						<f:convertDateTime pattern="yyyy-MM-dd" timeZone="Asia/Tokyo" />
+					</h:outputText>
+
+				受注確度<h:outputText id="acc"
+						value="#{reportBean.map.accR.get(reportBean.reportForm.project.accuracy)}">
+					</h:outputText>
+
+ 				案件ステータス<h:outputText
+						value="#{reportBean.map.pStatusR.get(reportBean.reportForm.project.projectStatus)}"
+						id="status">
+					</h:outputText>
+
+			案件メモ<h:outputText
+						value="#{reportBean.reportForm.project.projectMemo}"
+						id="projectMemo">
+					</h:outputText>
+
+				取引先<h:outputText
+						value="#{reportBean.reportForm.project.customerCode}"
+						id="customerCode">
+					</h:outputText>
+
+			電話番号<h:outputText
+						value="#{reportBean.reportForm.project.customerPhoneNumber}"
+						id="phone">
+					</h:outputText>
+
+			メールアドレス<h:outputText
+						value="#{reportBean.reportForm.project.customerMailAddress}"
+						id="mail">
+					</h:outputText>
+
+				主管部署<h:outputText value="#{reportBean.reportForm.sectionName}"
+						id="section">
+					</h:outputText>
+
+
+			営業社員名<h:outputText value="#{reportBean.reportForm.staffName}"
+						id="staffName">
+					</h:outputText>
+				</h:panelGrid>
+
+				<h:form>
+					<div style="margin: auto 0; height: 70px" class="text-center pt-3">
+						<h:commandButton action="#{reportBean.register()}"
+							value="案件報告新規作成" style="width:250px"
+							styleClass="btn btn-primary  btn-lg text-center  mr-3" />
+
+						<h:button value="戻る" outcome="/common/report/report-s.xhtml"
+							style="width:250px"
+							styleClass="btn btn-primary btn-lg  text-center" />
+
+					</div>
+				</h:form>
+			</div>
+			<div class="col-7">
+				<h:form>
+
+					<h3>案件報告一覧</h3>
+
+					<h:outputText value="#{reportBean.deleteMessage}"
+						styleClass="message" />
+					<h:panelGrid columns="5"
+						styleClass="table table-striped  table-borderless">
+						<h:commandLink action="#{reportBean.movePageInReport('top')}"
+							rendered="#{reportBean.page2.pastPageExt()}">＜＜</h:commandLink>
+						<h:outputText value="＜＜"
+							rendered="#{!reportBean.page2.pastPageExt()}" />
+						<h:commandLink action="#{reportBean.movePageInReport('past')}"
+							rendered="#{reportBean.page2.pastPageExt()}">＜</h:commandLink>
+						<h:outputText value="＜"
+							rendered="#{!reportBean.page2.pastPageExt()}" />
+			[#{reportBean.page2.currentPage} / #{reportBean.page2.maxPage}]
+			<h:commandLink action="#{reportBean.movePageInReport('next')}"
+							rendered="#{reportBean.page2.nextPageExt()}">＞</h:commandLink>
+						<h:outputText value="＞"
+							rendered="#{!reportBean.page2.nextPageExt()}" />
+						<h:commandLink action="#{reportBean.movePageInReport('last')}"
+							rendered="#{reportBean.page2.nextPageExt()}">＞＞</h:commandLink>
+						<h:outputText value="＞＞"
+							rendered="#{!reportBean.page2.nextPageExt()}" />
+					</h:panelGrid>
+				</h:form>
+
+				<h:dataTable value="#{reportBean.page2.reportList}" var="f"
+					styleClass="table table-striped table table-hover table-borderless">
+					<h:column>
+						<f:facet name="header">案件コード</f:facet>
+						<h:outputText value="#{f.projectCode}" />
+					</h:column>
+
+
+					<h:column>
+						<f:facet name="header">受注予定日</f:facet>
+						<h:outputText value="#{f.receivedDate}">
+							<f:convertDateTime pattern="yyyy-MM-dd" timeZone="Asia/Tokyo" />
+						</h:outputText>
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">案件ステータス</f:facet>
+						<h:outputText value="#{reportBean.map.pStatusR.get(f.status)}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">メモ</f:facet>
+						<h:outputText value="#{f.memoHidden}">
+						</h:outputText>
+					</h:column>
+
+					<h:column>
+						<h:form>
+							<f:facet name="header">編集</f:facet>
+							<h:commandButton action="#{reportBean.edit(f)}" value="編集"
+								styleClass="float-none btn btn-outline-primary text-center" />
+						</h:form>
+					</h:column>
+					<h:column>
+						<h:form>
+							<f:facet name="header">削除</f:facet>
+							<h:commandButton action="#{reportBean.delete(f)}" value="削除"
+								onclick="return confirm('削除してもよろしいでしょうか?')"
+								styleClass="float-none btn btn-outline-primary text-center" />
+						</h:form>
+					</h:column>
+				</h:dataTable>
+
+			</div>
+		</div>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,55 @@
+<ui:composition template="/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:define name="title">取引先情報確認</ui:define>
+	<ui:define name="content">
+		<div style="margin: 0 auto; width: 70%">
+			<h:outputText rendered="#{customerBean.form.registerFlag}"
+				styleClass="messageh3" value="新規取引先登録" />
+			<h:outputText rendered="#{customerBean.form.editFlag}"
+				styleClass="messageh3" value="取引先情報編集" />
+			<h:outputText rendered="#{customerBean.form.deleteFlagForForm}"
+				styleClass="messageh3" value="取引先情報削除" />
+			<h2>
+				<h:outputText value="#{customerBean.logic.message}" />
+			</h2>
+
+			<h:form>
+				<h:panelGrid columns="2"
+					styleClass="table table-striped table-hover table-borderless">
+			取引先コード<h:outputText value="#{customerBean.form.customerCode}"
+						id="customerCode">
+					</h:outputText>
+
+
+			取引先名<h:outputText value="#{customerBean.form.customerName}"
+						id="customerName">
+					</h:outputText>
+
+			住所<h:outputText value="#{customerBean.form.address}"
+						id="address2">
+					</h:outputText>
+
+			電話番号<h:outputText value="#{customerBean.form.phoneNumber}" id="phone">
+					</h:outputText>
+
+			URL<h:outputText value="#{customerBean.form.url}" id="mail">
+					</h:outputText>
+				</h:panelGrid>
+
+
+				<h:button value="戻る[入力へ]"
+					outcome="/common/customer/customer-r.xhtml"
+					styleClass="float-left btn btn-primary btn-lg  text-center" />
+				<h:commandButton value="実行" action="#{customerBean.registerF()}"
+					styleClass="float-right btn btn-primary btn-lg  text-center"
+					style="width:200px" />
+			</h:form>
+		</div>
+	</ui:define>
+
+</ui:composition>

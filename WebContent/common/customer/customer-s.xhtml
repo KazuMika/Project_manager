@@ -1,0 +1,153 @@
+<ui:composition template="/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ps="http://xmlns.jcp.org/jsf/passthrough"
+	 xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="title">取引先検索</ui:define>
+
+	<ui:define name="content">
+		<div class="row">
+			<div class="col-4">
+				<h:form>
+					<div style="margin: auto 0; height: 50px" class="text-center">
+						<h:commandButton action="#{customerBean.register()}"
+							value="取引先新規作成" style="width:200px"
+							styleClass="float-none btn btn-primary  btn-lg text-center" />
+
+					</div>
+
+				</h:form>
+				<h:form>
+					<div class="mx-auto text-center box17"
+						style="margin: 20px 0 30px 0">
+						<h3>検索</h3>
+						<h:panelGrid columns="3" styleClass="table  table-borderless">
+			取引先コード<h:inputText value="#{customerBean.condition.customerCode}"
+								id="customerCode2">
+
+							</h:inputText>
+							<h:messages id="errCode" class="message" for="customerCode2" />
+
+			取引先名<h:inputText value="#{customerBean.condition.customerName}"
+								id="customerName">
+							</h:inputText>
+							<h:messages id="errName" class="message" for="customerName" />
+							<!--
+				取引先名<h:selectOneMenu value="#{customerBean.condition.customerCode}"
+								id="customerCode3">
+								<f:selectItem itemValue="" itemLabel="" />
+								<f:selectItems value="#{customerBean.map.customerCode}" />
+							</h:selectOneMenu>
+							<h:messages class="message" for="customerCode3" />
+ -->
+
+			更新年月日(開始):<h:inputText id="updateDateS"
+								value="#{customerBean.condition.updateDateStart}" ps:type="date"
+								label="予定年月日">
+								<f:convertDateTime pattern="yyyy-MM-dd" timeZone="Asia/Tokyo" />
+							</h:inputText>
+							<h:messages class="message" for="updateDateS" />
+
+			更新年月日(終了):<h:inputText id="updateDateE"
+								value="#{customerBean.condition.updateDateEnd}" ps:type="date"
+								label="予定年月日">
+								<f:convertDateTime pattern="yyyy-MM-dd" timeZone="Asia/Tokyo" />
+							</h:inputText>
+							<h:messages class="message" for="updateDateE" />
+
+						</h:panelGrid>
+						<h:commandButton action="#{customerBean.search()}" value="検索"
+							style="width:200px"
+							styleClass=" btn btn-primary  btn-lg text-center mb-3" />
+						<br />
+
+						<h:commandButton action="#{customerBean.searchClear()}"
+							value="検索条件クリア" style="width:200px"
+							styleClass=" btn btn-primary  btn-lg text-center" />
+					</div>
+				</h:form>
+			</div>
+			<div class="col-8">
+				<h3>取引先一覧</h3>
+				<h:outputText value="#{customerBean.deleteMessage}"
+					styleClass="message" />
+
+				<h:form>
+
+
+					<h:panelGrid columns="5"
+						styleClass="table table-striped  table-borderless">
+						<h:commandLink action="#{customerBean.movePage('top')}"
+							rendered="#{customerBean.page.pastPageExt()}">＜＜</h:commandLink>
+						<h:outputText value="＜＜"
+							rendered="#{!customerBean.page.pastPageExt()}" />
+						<h:commandLink action="#{customerBean.movePage('past')}"
+							rendered="#{customerBean.page.pastPageExt()}">＜</h:commandLink>
+						<h:outputText value="＜"
+							rendered="#{!customerBean.page.pastPageExt()}" />
+			[#{customerBean.page.currentPage} / #{customerBean.page.maxPage}]
+			<h:commandLink action="#{customerBean.movePage('next')}"
+							rendered="#{customerBean.page.nextPageExt()}">＞</h:commandLink>
+						<h:outputText value="＞"
+							rendered="#{!customerBean.page.nextPageExt()}" />
+						<h:commandLink action="#{customerBean.movePage('last')}"
+							rendered="#{customerBean.page.nextPageExt()}">＞＞</h:commandLink>
+						<h:outputText value="＞＞"
+							rendered="#{!customerBean.page.nextPageExt()}" />
+					</h:panelGrid>
+				</h:form>
+
+				<p:dataTable value="#{customerBean.page.customerList}" var="f" sortMode="multiple"
+					styleClass="table table-striped table-hover table-borderless">
+					<p:column sortBy="#{f.customerCode}">
+						<f:facet name="header">取引先コード</f:facet>
+						<h:outputText value="#{f.customerCode}" />
+					</p:column>
+
+					<p:column sortBy="#{f.customerName}">
+						<f:facet name="header">取引先名</f:facet>
+						<h:outputText value="#{f.customerName}" />
+					</p:column>
+
+
+					<p:column sortBy="#{f.updateDate}">
+						<f:facet name="header">更新日</f:facet>
+						<h:outputText value="#{f.updateDate}">
+							<f:convertDateTime pattern="yyyy-MM-dd" timeZone="Asia/Tokyo" />
+						</h:outputText>
+					</p:column>
+
+					<p:column sortBy="#{f.address}">
+						<f:facet name="header">住所</f:facet>
+						<h:outputText value="#{f.address}" />
+<!-- 						value="#{customerBean.map.customerCodeR.get(f.customerCode)}" /> -->
+					</p:column>
+
+					<p:column>
+						<h:form>
+							<f:facet name="header">編集</f:facet>
+							<h:commandButton action="#{customerBean.edit(f)}" value="編集"
+								styleClass="float-none btn btn-outline-primary text-center" />
+						</h:form>
+					</p:column>
+
+					<p:column>
+						<h:form>
+							<f:facet name="header">削除</f:facet>
+							<h:commandButton action="#{customerBean.delete(f)}" value="削除"
+								styleClass="float-none btn btn-outline-primary  text-center" />
+						</h:form>
+					</p:column>
+				</p:dataTable>
+			</div>
+
+		</div>
+
+
+
+
+	</ui:define>
+</ui:composition>

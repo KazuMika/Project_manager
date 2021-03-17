@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<h:outputStylesheet library="css" name="style.css" />
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputScript library="js" name="jquery-3.5.1.min.js" />
+	<h:outputScript library="js" name="bootstrap.min.js" />
+	<h:outputScript library="js" name="main.js" />
+
+
+
+	<title><ui:insert name="title">Login</ui:insert></title>
+</h:head>
+
+<h:body>
+	<div class="wrapper">
+		<div class="navbar navbar-dark bg-dark navbar-expand fixed-top">
+
+			<!-- 			<h:link class="navbar-brand boldText" href="#">ProjectB</h:link> -->
+			<a class="navbar-brand boldText" href="#">ProjectB</a>
+			<div class="navbar-nav">
+				<h:button class="nav-item nav-link btn  btn-dark " value="メニューへ"
+					outcome="/common/menu.xhtml">
+				</h:button>
+				<ui:repeat value="#{loginBean.loginInfo.functions}" var="f">
+					<h:link class="nav-item nav-link" outcome="#{f.url}">
+						<h:outputText value="#{f.name}" />
+					</h:link>
+				</ui:repeat>
+				<h:form>
+					<h:commandLink class="nav-item nav-link"
+						action="#{loginBean.logout()}">
+						<h:outputText value="ログアウト" />
+					</h:commandLink>
+				</h:form>
+			</div>
+		</div>
+
+		<div class="container2">
+			<ui:insert name="content" />
+
+		</div>
+
+
+		<div class="bg-dark footer">
+			<p>(c) ProjectB</p>
+		</div>
+	</div>
+
+
+</h:body>
+</html>

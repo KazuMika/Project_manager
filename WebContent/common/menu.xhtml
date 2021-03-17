@@ -1,0 +1,46 @@
+<ui:composition template="/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:define name="title">メニュー</ui:define>
+	<ui:define name="content">
+
+		<div class="row">
+			<div class="col-4">
+				<h3>メニュー</h3>
+				<h:dataTable value="#{loginBean.loginInfo.functions}" var="f"
+					styleClass="table table-striped table table-hover table-borderless">
+					<h:column>
+						<h:link outcome="#{f.url}" style="display:block">
+							<h:outputText value="#{f.name}" />
+						</h:link>
+					</h:column>
+
+				</h:dataTable>
+				<h:form>
+
+					<h:commandButton action="#{loginBean.logout()}" value="ログアウト"
+						styleClass="btn btn-primary btn-lg btn-block text-center" />
+
+				</h:form>
+			</div>
+			<div class="col-8">
+				<h3>ログイン情報</h3>
+				<h:panelGrid columns="2"
+					styleClass="table table-striped  table-borderless">
+					<h:outputText value="現在日時" />
+					<h:outputText value="#{loginBean.loginInfo.loginDate}" />
+					<h:outputText value="社員ID" />
+					<h:outputText value="#{loginBean.loginInfo.loginStaff.staffID}" />
+					<h:outputText value="氏名" />
+					<h:outputText value="#{loginBean.loginInfo.loginStaff.staffName}" />
+				</h:panelGrid>
+			</div>
+
+		</div>
+
+	</ui:define>
+</ui:composition>

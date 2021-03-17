@@ -1,0 +1,119 @@
+<ui:composition template="/templates/template.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+	<ui:define name="title">案件情報作成</ui:define>
+	<ui:define name="content">
+		<div style="margin: 0 auto; width: 70%">
+			<h:outputText rendered="#{!matterBean.matterForm.editFlag}"
+				styleClass="messageh3" value="新規案件登録" />
+			<h:outputText rendered="#{matterBean.matterForm.editFlag}"
+				styleClass="messageh3" value="案件情報編集" />
+			<br />
+			<h:outputText styleClass="message" value="#{matterBean.editMessage1}" />
+			<br />
+			<h:outputText styleClass="message" value="#{matterBean.editMessage2}" />
+			<br />
+
+			<h:outputText styleClass="message"
+				value="#{matterBean.matterLogic.message}" />
+
+
+			<h:form>
+				<h:panelGrid columns="3"
+					styleClass="table table-striped table table-hover table-borderless">
+			案件コード<h:inputText value="#{matterBean.matterForm.projectCode}"
+						id="projectCode" rendered="#{!matterBean.matterForm.editFlag}">
+						<f:ajax event="blur" execute="@this" render="errCode" />
+					</h:inputText>
+					<h:outputText value="#{matterBean.matterForm.projectCode}"
+						id="projectCode2" rendered="#{matterBean.matterForm.editFlag}">
+					</h:outputText>
+					<h:messages class="message" for="projectCode" id="errCode" />
+
+			案件名<h:inputText value="#{matterBean.matterForm.projectName}"
+						id="projectName">
+						<f:ajax event="blur" execute="@this" render="errName" />
+					</h:inputText>
+					<h:messages class="message" for="projectName" id="errName" />
+
+			受注予定年月日:<h:inputText id="receivedDate"
+						value="#{matterBean.matterForm.receivedDate}" p:type="date"
+						label="予定年月日">
+						<f:convertDateTime pattern="yyyy-MM-dd" timeZone="Asia/Tokyo" />
+						<f:ajax event="blur" execute="@this" render="errDate" />
+					</h:inputText>
+					<h:messages class="message" for="receivedDate" id="errDate" />
+
+				受注確度<h:selectOneMenu id="acc"
+						value="#{matterBean.matterForm.accuracy}">
+						<f:selectItems value="#{matterBean.map.acc}" />
+						<f:ajax event="blur" execute="@this" render="errAcc" />
+					</h:selectOneMenu>
+					<h:messages class="message" for="acc" id="errAcc" />
+
+ 				案件ステータス<h:selectOneMenu
+						value="#{matterBean.matterForm.projectStatus}" id="status"
+						rendered="#{!matterBean.matterForm.editFlag}">
+						<f:ajax event="blur" execute="@this" render="errStatus" />
+						<f:selectItems value="#{matterBean.map.pStatusForRegister}" />
+					</h:selectOneMenu>
+					<h:outputText
+						value="#{matterBean.map.pStatusR.get(matterBean.matterForm.projectStatus)}"
+						rendered="#{matterBean.matterForm.editFlag}">
+					</h:outputText>
+					<h:messages class="message" for="status" id="errStatus" />
+
+			案件メモ<h:inputTextarea rows="5" cols="50"
+						value="#{matterBean.matterForm.projectMemo}" id="projectMemo">
+						<f:ajax event="blur" execute="@this" render="errMemo" />
+					</h:inputTextarea>
+					<h:messages class="message" for="projectMemo" id="errMemo" />
+
+				取引先<h:selectOneMenu value="#{matterBean.matterForm.customerCode}"
+						id="customerCode">
+						<f:ajax event="blur" execute="@this" render="errCustomer" />
+						<f:selectItems value="#{matterBean.map.customerCode}" />
+					</h:selectOneMenu>
+					<h:messages class="message" for="customerCode" id="errCustomer" />
+
+			電話番号<h:inputText value="#{matterBean.matterForm.customerPhoneNumber}"
+						id="phone">
+						<f:ajax event="blur" execute="@this" render="errPhone" />
+					</h:inputText>
+					<h:messages class="message" for="phone" id="errPhone" />
+
+			メールアドレス<h:inputText
+						value="#{matterBean.matterForm.customerMailAddress}" id="mail">
+						<f:ajax event="blur" execute="@this" render="errMail" />
+					</h:inputText>
+					<h:messages class="message" for="mail" id="errMail" />
+
+				主管部署<h:selectOneMenu value="#{matterBean.matterForm.section}"
+						id="section">
+						<f:ajax event="blur" execute="@this" render="errSection" />
+						<f:selectItems value="#{matterBean.map.section}" />
+					</h:selectOneMenu>
+					<h:messages class="message" for="section" id="errSection"/>
+
+
+			営業社員ID<h:inputText value="#{matterBean.matterForm.staffID}"
+						id="staffID">
+						<f:ajax event="blur" execute="@this" render="errID" />
+					</h:inputText>
+					<h:messages class="message" for="staffID" id="errID" />
+				</h:panelGrid>
+
+				<h:button value="戻る[検索へ]" outcome="/common/matter/matter-s.xhtml"
+					styleClass="float-left btn btn-primary btn-lg  text-center" />
+				<h:commandButton value="確認" action="#{matterBean.registerC()}"
+					styleClass="float-right btn btn-primary btn-lg  text-center"
+					style="width:200px" />
+			</h:form>
+		</div>
+	</ui:define>
+
+</ui:composition>

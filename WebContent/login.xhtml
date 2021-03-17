@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<h:head>
+		<title>ログイン</title>
+		<h:outputStylesheet library="css" name="style2.css" />
+		<h:outputStylesheet library="css" name="bootstrap.min.css" />
+		<h:outputScript library="js" name="jquery-3.5.1.min.js" />
+		<h:outputScript library="js" name="bootstrap.min.js" />
+		<h:outputScript library="js" name="main.js" />
+	</h:head>
+</h:head>
+<h:body>
+
+	<div class="wrapper">
+		<div class="container">
+			<h1>Login</h1>
+			<h:outputText value="#{loginBean.loginLogic.message}" class="message" />
+
+			<div id="formTable">
+				<h:form>
+					<h:panelGrid columns="3" style="margin:0 auto;">
+						<h:outputLabel class="formOutput" value="StaffID:" />
+						<h:inputText value="#{loginBean.loginInfo.staffID}" id="staffID"
+							placeholder="StaffID">
+							<f:ajax event="blur" execute="@this" render="errStaffID" />
+
+						</h:inputText>
+						<h:messages id="errStaffID" class="message" for="staffID" />
+
+						<h:outputLabel class="formOutput" value="Password: " />
+						<h:inputSecret value="#{loginBean.loginInfo.password}"
+							id="userPass" placeholder="StaffID">
+							<f:ajax event="blur" execute="@this" render="errPassword" />
+						</h:inputSecret>
+						<h:messages id="errPassword" class="message" for="userPass" />
+						<h:outputLabel value="" />
+						<h:commandButton id="login-button" value="ログイン"
+							action="#{loginBean.login()}" />
+						<h:outputLabel value="  " />
+						<h:outputLabel value="  " />
+						<h:commandButton id="reset-button" value="リセット"
+							action="#{loginBean.reset()}" />
+
+					</h:panelGrid>
+				</h:form>
+			</div>
+		</div>
+		<ul class="bg-bubbles">
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+			<li></li>
+		</ul>
+	</div>
+</h:body>
+</html>
